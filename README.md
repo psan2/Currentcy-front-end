@@ -1,3 +1,6 @@
+# Currentcy-front-end
+
+A small, configurable foreign exchange tracking app that allows users to track a set of favorite currencies against their own home currency
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
