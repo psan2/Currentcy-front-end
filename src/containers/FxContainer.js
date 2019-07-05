@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import API_KEY from "../config";
+import React, { Component, Fragment } from "react";
+// import API_KEY from "../config";
 import FxCard from "../components/FxCard";
 import FilterSortBar from "../components/FilterSortBar";
 // import { Grid, borders } from "@material-ui/core";
@@ -100,13 +100,13 @@ export default class FxContainer extends Component {
 
   render() {
     return (
-      <div className="grid-container">
+      <Fragment>
         <FilterSortBar
           globalRangeStart={this.globalChartRange}
           setGlobalRange={this.globalFilter}
         />
-        {this.createCards()}
-      </div>
+        <div className="grid-container">{this.createCards()}</div>
+      </Fragment>
     );
   }
 }

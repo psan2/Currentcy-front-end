@@ -90,7 +90,7 @@ class FxCard extends Component {
 
   render() {
     return (
-      <div className="FxCard">
+      <div className="fx-card">
         {this.props.conversion}
         {this.generateGraph()}
         {this.createRangeFilter()}

@@ -15,7 +15,13 @@
 
 .grid-container {
   display: grid;
-  grid-gap: 50px;
+  grid-template-columns: 3fr repeat(4, 1fr);
+  grid-template-rows: 400px;
+  grid-template-areas: ". . . ." ". . . ." ". . . .";
+}
+
+.fx-card {
+  border: 100px blue;
 }
 
 .global-settings-btn {
