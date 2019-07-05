@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import API_KEY from "../config";
 import FxCard from "../components/FxCard";
-import Grid from "@material-ui/core/Grid";
+import FilterSortBar from "../components/FilterSortBar";
+// import { Grid, borders } from "@material-ui/core";
 // import TextField from "@material-ui/core/TextField";
 
 export default class FxContainer extends Component {
@@ -81,23 +82,23 @@ export default class FxContainer extends Component {
   createCards = () => {
     return this.state.chartData.map((conversionObject, index) => {
       return (
-        <Grid key={index} item xs={12} sm={6} lg={4} xl={3}>
-          <FxCard
-            conversion={conversionObject.conversion}
-            closeData={conversionObject.closeData}
-            highData={conversionObject.highData}
-            lowData={conversionObject.lowData}
-          />
-        </Grid>
+        <FxCard
+          key={index}
+          conversion={conversionObject.conversion}
+          closeData={conversionObject.closeData}
+          highData={conversionObject.highData}
+          lowData={conversionObject.lowData}
+        />
       );
     });
   };
 
   render() {
     return (
-      <Grid container spacing={10} style={{ padding: 24 }}>
+      <div className="filter-sort-bar">
+        <FilterSortBar />
         {this.createCards()}
-      </Grid>
+      </div>
     );
   }
 }
