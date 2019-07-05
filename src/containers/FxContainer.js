@@ -88,6 +88,7 @@ export default class FxContainer extends Component {
           closeData={conversionObject.closeData}
           highData={conversionObject.highData}
           lowData={conversionObject.lowData}
+          globalRangeStart={this.state.globalChartRange}
         />
       );
     });
@@ -99,8 +100,11 @@ export default class FxContainer extends Component {
 
   render() {
     return (
-      <div className="filter-sort-bar">
-        <FilterSortBar setGlobalRange={this.globalFilter} />
+      <div className="grid-container">
+        <FilterSortBar
+          globalRangeStart={this.globalChartRange}
+          setGlobalRange={this.globalFilter}
+        />
         {this.createCards()}
       </div>
     );

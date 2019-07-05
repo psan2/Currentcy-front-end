@@ -7,10 +7,11 @@ import {
   LineSeries,
   ChartLabel
 } from "../../node_modules/react-vis";
+import { currentYear, maxRangeYear } from "../modules/DateFunctions";
 
 class FxCard extends Component {
   state = {
-    cardYearRange: 0
+    cardYearRange: this.props.globalRangeStart
   };
 
   filterChartData = () => {
@@ -64,35 +65,24 @@ class FxCard extends Component {
     );
   };
 
-  maxRangeYear = () => {
-    const allYears = this.props.closeData.map(week =>
-      parseInt(week.x.getFullYear(), 10)
-    );
-    return Math.min(...allYears);
-  };
-
   // chart range is determined by setting an initial year, then filtering for inputs that are greater than/equal to that year
   createRangeFilter = () => {
-    const today = new Date();
-    const currentYear = today.getFullYear();
-    const lastYear = currentYear - 1;
-    const threeYears = currentYear - 3;
-    const fiveYears = currentYear - 5;
-
     return (
       <Fragment>
         View exchange data starting from:
         <select
           name="range"
           onChange={event =>
-            this.setState({ cardYearRange: event.target.value })
+            this.setState({ cardYearRange: parseInt(event.target.value, 10) })
           }
         >
-          <option value={currentYear}>This year</option>
-          <option value={lastYear}>Last year</option>
-          <option value={threeYears}>{threeYears}</option>
-          <option value={fiveYears}>{fiveYears}</option>
-          <option value={this.maxRangeYear()}>All available years</option>
+          <option value={currentYear()}>This year</option>
+          <option value={currentYear() - 1}>Last year</option>
+          <option value={currentYear() - 3}>{currentYear() - 3}</option>
+          <option value={currentYear() - 5}>{currentYear() - 5}</option>
+          <option value={maxRangeYear(this.props.closeData)}>
+            All available years
+          </option>
         </select>
       </Fragment>
     );

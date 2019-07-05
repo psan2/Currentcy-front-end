@@ -13,4 +13,16 @@
   color: white;
 }
 
+.grid-container {
+  display: grid;
+  grid-gap: 50px;
+}
+
+.global-settings-btn {
+  display: block;
+  padding: 15px;
+  border-left: 6px solid blue;
+  background-color: lightblue;
+}
+
 @import "../node_modules/react-vis/dist/style.css";
