@@ -9,9 +9,30 @@ import {
 } from "../../node_modules/react-vis";
 
 class FxCard extends Component {
-  generateGraph = () => {
+  state = {
+    cardYearRange: 0
+  };
+
+  filterChartData = () => {
     const { closeData, highData, lowData } = this.props;
 
+    const filteredData = {
+      closeData: closeData.filter(
+        week => parseInt(week.x.getFullYear(), 10) >= this.state.cardYearRange
+      ),
+      highData: highData.filter(
+        week => parseInt(week.x.getFullYear(), 10) >= this.state.cardYearRange
+      ),
+      lowData: lowData.filter(
+        week => parseInt(week.x.getFullYear(), 10) >= this.state.cardYearRange
+      )
+    };
+
+    return filteredData;
+  };
+
+  generateGraph = () => {
+    const { closeData, highData, lowData } = this.filterChartData();
     return (
       <FlexibleWidthXYPlot xType="time" height={400}>
         <HorizontalGridLines />
@@ -43,21 +64,35 @@ class FxCard extends Component {
     );
   };
 
+  maxRangeYear = () => {
+    const allYears = this.props.closeData.map(week =>
+      parseInt(week.x.getFullYear(), 10)
+    );
+    return Math.min(...allYears);
+  };
+
   // chart range is determined by setting an initial year, then filtering for inputs that are greater than/equal to that year
   createRangeFilter = () => {
     const today = new Date();
     const currentYear = today.getFullYear();
     const lastYear = currentYear - 1;
+    const threeYears = currentYear - 3;
     const fiveYears = currentYear - 5;
 
     return (
       <Fragment>
-        Chart range:
-        <select name="range">
+        View exchange data starting from:
+        <select
+          name="range"
+          onChange={event =>
+            this.setState({ cardYearRange: event.target.value })
+          }
+        >
           <option value={currentYear}>This year</option>
-          <option value={lastYear}>{lastYear}</option>
+          <option value={lastYear}>Last year</option>
+          <option value={threeYears}>{threeYears}</option>
           <option value={fiveYears}>{fiveYears}</option>
-          <option value="all-time">All available years</option>
+          <option value={this.maxRangeYear()}>All available years</option>
         </select>
       </Fragment>
     );

@@ -6,7 +6,7 @@ import FilterSortBar from "../components/FilterSortBar";
 // import TextField from "@material-ui/core/TextField";
 
 export default class FxContainer extends Component {
-  state = { chartData: [] };
+  state = { chartData: [], globalChartRange: 0 };
 
   //using TEST_URL instead of live API link to limit API calls due to rate-limiting
   TEST_URL = "http://localhost:3000/";
@@ -93,10 +93,14 @@ export default class FxContainer extends Component {
     });
   };
 
+  globalFilter = year => {
+    this.setState({ globalChartRange: year });
+  };
+
   render() {
     return (
       <div className="filter-sort-bar">
-        <FilterSortBar />
+        <FilterSortBar setGlobalRange={this.globalFilter} />
         {this.createCards()}
       </div>
     );
