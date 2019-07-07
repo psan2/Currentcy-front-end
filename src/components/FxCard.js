@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import {
   XAxis,
   YAxis,
@@ -8,7 +8,7 @@ import {
   ChartLabel
 } from "../../node_modules/react-vis";
 import { currentYear, oldestYear } from "../modules/DateFunctions";
-import DateButtonBar from "../containers/DateButtonBar";
+// import DateButtonBar from "../containers/DateButtonBar";
 
 class FxCard extends Component {
   filterChartData = () => {
@@ -70,7 +70,7 @@ class FxCard extends Component {
   // chart range is determined by setting an initial year, then filtering for inputs that are greater than/equal to that year
   createRangeFilter = () => {
     return (
-      <Fragment>
+      <div>
         View exchange data starting from:
         <select
           name="range"
@@ -89,11 +89,14 @@ class FxCard extends Component {
             All available years
           </option>
         </select>
-      </Fragment>
+      </div>
     );
   };
 
-  createButtonBar = () => {};
+  // createButtonBar = () => {
+  //   const dateRange = years(this.props.conversionObject.closeData);
+  //   return <DateButtonBar dateRange={dateRange} />;
+  // };
 
   render() {
     return (

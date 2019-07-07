@@ -2,32 +2,18 @@
   text-align: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.grid-container {
+.fx-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 400px;
-  grid-template-areas: ". . . ." ". . . ." ". . . .";
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .fx-card {
-  text-align: center;
   border: grey solid 1px;
+  border-radius: 8px;
   padding: 1rem;
   width: 25rem;
-  height: 25rem;
   display: inline-grid;
-  margin: 1rem 2rem;
+  margin: 1rem 3rem;
   box-shadow: 3px 3px 3px 3px gray;
 }
 
@@ -37,5 +23,4 @@
   border-left: 6px solid blue;
   background-color: lightblue;
 }
-
 @import "../node_modules/react-vis/dist/style.css";

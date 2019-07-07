@@ -122,7 +122,9 @@ export default class FxContainer extends Component {
           globalRangeStart={this.globalChartRange}
           rangeFilter={this.rangeFilter}
         />
-        <div className="grid-container">{this.createCards()}</div>
+        <div className="fx-container" id="main">
+          {this.createCards()}
+        </div>
       </Fragment>
     );
   }
