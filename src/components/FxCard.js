@@ -7,7 +7,7 @@ import {
   LineSeries,
   ChartLabel
 } from "../../node_modules/react-vis";
-import { currentYear, maxRangeYear } from "../modules/DateFunctions";
+import { currentYear, oldestYear } from "../modules/DateFunctions";
 import DateButtonBar from "../containers/DateButtonBar";
 
 class FxCard extends Component {
@@ -68,7 +68,7 @@ class FxCard extends Component {
   };
 
   // chart range is determined by setting an initial year, then filtering for inputs that are greater than/equal to that year
-  createButtonBar = () => {
+  createRangeFilter = () => {
     return (
       <Fragment>
         View exchange data starting from:
@@ -85,7 +85,7 @@ class FxCard extends Component {
           <option value={currentYear() - 1}>Last year</option>
           <option value={currentYear() - 3}>{currentYear() - 3}</option>
           <option value={currentYear() - 5}>{currentYear() - 5}</option>
-          <option value={maxRangeYear(this.props.conversionObject.closeData)}>
+          <option value={oldestYear(this.props.conversionObject.closeData)}>
             All available years
           </option>
         </select>
@@ -93,12 +93,14 @@ class FxCard extends Component {
     );
   };
 
+  createButtonBar = () => {};
+
   render() {
     return (
       <div className="fx-card">
         {this.props.conversion}
         {this.generateGraph()}
-        {this.createButtonBar()}
+        {this.createRangeFilter()}
       </div>
     );
   }

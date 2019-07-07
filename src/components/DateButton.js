@@ -1,5 +1,7 @@
 import React from "react";
 
-export default function DateButton() {
-  return <div>temp</div>;
-}
+const DateButton = props => {
+  return <button onClick={props.filterThisYear}>{props.buttonText}</button>;
+};
+
+export default DateButton;

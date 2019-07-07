@@ -8,9 +8,18 @@ const midRangeYear = dates => {
   const buttons = allYears.length / 4;
 };
 
-const maxRangeYear = dates => {
+const oldestYear = dates => {
   const allYears = dates.map(week => parseInt(week.x.getFullYear(), 10));
   return Math.min(...allYears);
 };
 
-export { currentYear, maxRangeYear };
+const years = dates => {
+  let allYears = [];
+  dates.map(week => {
+    const year = parseInt(week.x.getFullYear(), 10);
+    if (!allYears.includes(year)) allYears.push(year);
+  });
+  return years;
+};
+
+export { currentYear, oldestYear, years };
