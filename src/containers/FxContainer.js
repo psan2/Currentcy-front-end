@@ -6,7 +6,7 @@ import FilterSortBar from "../components/FilterSortBar";
 // import TextField from "@material-ui/core/TextField";
 
 export default class FxContainer extends Component {
-  state = { chartData: [], globalChartRange: 0 };
+  state = { chartData: [] };
 
   //using TEST_URL instead of live API link to limit API calls due to rate-limiting
   TEST_URL = "http://localhost:3000/";
@@ -70,6 +70,7 @@ export default class FxContainer extends Component {
       chartData: [
         ...this.state.chartData,
         {
+          rangeStart: 0,
           conversion: `${fromCurrency}_to_${toCurrency}`,
           closeData: closeData,
           highData: highData,
@@ -84,18 +85,34 @@ export default class FxContainer extends Component {
       return (
         <FxCard
           key={index}
-          conversion={conversionObject.conversion}
-          closeData={conversionObject.closeData}
-          highData={conversionObject.highData}
-          lowData={conversionObject.lowData}
-          globalRangeStart={this.state.globalChartRange}
+          conversionObject={conversionObject}
+          rangeFilter={this.rangeFilter}
         />
       );
     });
   };
 
-  globalFilter = year => {
-    this.setState({ globalChartRange: year });
+  rangeFilter = (year, targetConversion) => {
+    let newCharts = {};
+    if (!targetConversion) {
+      newCharts = this.state.chartData.map(conversionCard => {
+        conversionCard.rangeStart = year;
+        return conversionCard;
+      });
+    } else {
+      newCharts = this.state.chartData.map(conversionCard => {
+        if (conversionCard.conversion === targetConversion) {
+          conversionCard.rangeStart = year;
+          return conversionCard;
+        } else {
+          return conversionCard;
+        }
+      });
+    }
+
+    this.setState({
+      chartData: newCharts
+    });
   };
 
   render() {
@@ -103,7 +120,7 @@ export default class FxContainer extends Component {
       <Fragment>
         <FilterSortBar
           globalRangeStart={this.globalChartRange}
-          setGlobalRange={this.globalFilter}
+          rangeFilter={this.rangeFilter}
         />
         <div className="grid-container">{this.createCards()}</div>
       </Fragment>

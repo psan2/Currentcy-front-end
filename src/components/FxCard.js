@@ -8,24 +8,26 @@ import {
   ChartLabel
 } from "../../node_modules/react-vis";
 import { currentYear, maxRangeYear } from "../modules/DateFunctions";
+import DateButtonBar from "../containers/DateButtonBar";
 
 class FxCard extends Component {
-  state = {
-    cardYearRange: this.props.globalRangeStart
-  };
-
   filterChartData = () => {
-    const { closeData, highData, lowData } = this.props;
+    const {
+      closeData,
+      highData,
+      lowData,
+      rangeStart
+    } = this.props.conversionObject;
 
     const filteredData = {
       closeData: closeData.filter(
-        week => parseInt(week.x.getFullYear(), 10) >= this.state.cardYearRange
+        week => parseInt(week.x.getFullYear(), 10) >= rangeStart
       ),
       highData: highData.filter(
-        week => parseInt(week.x.getFullYear(), 10) >= this.state.cardYearRange
+        week => parseInt(week.x.getFullYear(), 10) >= rangeStart
       ),
       lowData: lowData.filter(
-        week => parseInt(week.x.getFullYear(), 10) >= this.state.cardYearRange
+        week => parseInt(week.x.getFullYear(), 10) >= rangeStart
       )
     };
 
@@ -66,21 +68,24 @@ class FxCard extends Component {
   };
 
   // chart range is determined by setting an initial year, then filtering for inputs that are greater than/equal to that year
-  createRangeFilter = () => {
+  createButtonBar = () => {
     return (
       <Fragment>
         View exchange data starting from:
         <select
           name="range"
           onChange={event =>
-            this.setState({ cardYearRange: parseInt(event.target.value, 10) })
+            this.props.rangeFilter(
+              parseInt(event.target.value, 10),
+              this.props.conversionObject.conversion
+            )
           }
         >
           <option value={currentYear()}>This year</option>
           <option value={currentYear() - 1}>Last year</option>
           <option value={currentYear() - 3}>{currentYear() - 3}</option>
           <option value={currentYear() - 5}>{currentYear() - 5}</option>
-          <option value={maxRangeYear(this.props.closeData)}>
+          <option value={maxRangeYear(this.props.conversionObject.closeData)}>
             All available years
           </option>
         </select>
@@ -93,7 +98,7 @@ class FxCard extends Component {
       <div className="fx-card">
         {this.props.conversion}
         {this.generateGraph()}
-        {this.createRangeFilter()}
+        {this.createButtonBar()}
       </div>
     );
   }

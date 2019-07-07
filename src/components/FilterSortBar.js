@@ -14,10 +14,10 @@ export default class FilterSortBar extends Component {
           <select
             name="range"
             onChange={event =>
-              this.props.setGlobalRange(parseInt(event.target.value, 10))
+              this.props.rangeFilter(parseInt(event.target.value, 10))
             }
-            value={this.props.globalRange}
           >
+            <option value={0} />
             <option value={currentYear()}>This year</option>
             <option value={currentYear() - 1}>Last year</option>
             <option value={currentYear() - 3}>{currentYear() - 3}</option>

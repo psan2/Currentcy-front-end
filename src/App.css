@@ -15,13 +15,20 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: 3fr repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 400px;
   grid-template-areas: ". . . ." ". . . ." ". . . .";
 }
 
 .fx-card {
-  border: 100px blue;
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 25rem;
+  height: 25rem;
+  display: inline-grid;
+  margin: 1rem 2rem;
+  box-shadow: 3px 3px 3px 3px gray;
 }
 
 .global-settings-btn {
