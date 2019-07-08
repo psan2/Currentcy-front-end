@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import "./App.css";
-import MainContainer from "./containers/MainContainer";
 import LeftNav from "./containers/LeftNav";
 import Header from "./containers/Header";
+import FxContainer from "./containers/FxContainer";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function New() {
 }
 
 function Home() {
-  return <MainContainer />;
+  return <FxContainer />;
 }
 
 export default App;

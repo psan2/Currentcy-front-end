@@ -3,38 +3,33 @@
 .App {
   display: grid;
   grid-template-areas:
-    "header header header header header"
-    "left-nav forex-container forex-container forex-container r-nav-live-feed"
-    "left-nav forex-container forex-container forex-container r-nav-filters";
+    "header header header"
+    "left-nav forex-container r-nav-live-feed"
+    "left-nav forex-container r-nav-filters";
+  grid-template-columns: 1fr 3fr 1fr;
+}
 
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+.logo {
+  height: 60px;
 }
 
 .fx-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
 }
 
 .fx-card {
   border: grey solid 1px;
   border-radius: 8px;
-  padding: 1rem;
   width: 25rem;
   display: inline-grid;
-  margin: 1rem 3rem;
   box-shadow: 3px 3px 3px 3px gray;
 }
 
-.global-settings-btn {
-  display: block;
-  padding: 15px;
-  border-left: 6px solid blue;
-  background-color: lightblue;
-}
-@import "../node_modules/react-vis/dist/style.css";
 .header {
   grid-area: header;
-  background-color: cornflowerblue;
+  background-color: rgb(66, 102, 168);
 }
 
 .left-nav {
@@ -48,11 +43,15 @@
 }
 
 .r-nav-live-feed {
+  margin-left: 5px;
+  padding-left: 5px;
   grid-area: r-nav-live-feed;
-  background-color: rgb(45, 97, 194);
+  background-color: rgb(176, 195, 230);
 }
 
 .r-nav-filters {
+  margin-left: 5px;
+  padding-left: 5px;
   grid-area: r-nav-filters;
-  background-color: rgb(45, 97, 194);
+  background-color: rgb(176, 195, 230);
 }

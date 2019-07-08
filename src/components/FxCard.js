@@ -8,7 +8,6 @@ import {
   ChartLabel
 } from "../../node_modules/react-vis";
 import { currentYear, oldestYear } from "../modules/DateFunctions";
-// import DateButtonBar from "../containers/DateButtonBar";
 
 class FxCard extends Component {
   filterChartData = () => {
@@ -37,7 +36,7 @@ class FxCard extends Component {
   generateGraph = () => {
     const { closeData, highData, lowData } = this.filterChartData();
     return (
-      <FlexibleWidthXYPlot xType="time" height={400}>
+      <FlexibleWidthXYPlot xType="time" height={300}>
         <HorizontalGridLines />
         <XAxis />
         <YAxis />
@@ -55,10 +54,6 @@ class FxCard extends Component {
           includeMargin={false}
           xPercent={-0.07}
           yPercent={0.06}
-          style={{
-            transform: "rotate(-90)",
-            textAnchor: "end"
-          }}
         />
         <LineSeries data={closeData} />
         <LineSeries data={highData} />
@@ -93,15 +88,10 @@ class FxCard extends Component {
     );
   };
 
-  // createButtonBar = () => {
-  //   const dateRange = years(this.props.conversionObject.closeData);
-  //   return <DateButtonBar dateRange={dateRange} />;
-  // };
-
   render() {
     return (
       <div className="fx-card">
-        {this.props.conversion}
+        {this.props.conversionObject.conversion}
         {this.generateGraph()}
         {this.createRangeFilter()}
       </div>

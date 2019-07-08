@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 // import API_KEY from "../config";
 import FxCard from "../components/FxCard";
-import FilterSortBar from "../components/FilterSortBar";
+import RightNav from "../containers/RightNav";
 
 export default class FxContainer extends Component {
   state = { chartData: [] };
@@ -115,15 +115,10 @@ export default class FxContainer extends Component {
 
   render() {
     return (
-      <Fragment>
-        <FilterSortBar
-          globalRangeStart={this.globalChartRange}
-          rangeFilter={this.rangeFilter}
-        />
-        <div className="fx-container" id="main">
-          {this.createCards()}
-        </div>
-      </Fragment>
+      <React.Fragment>
+        <div className="fx-container">{this.createCards()}</div>
+        <RightNav />
+      </React.Fragment>
     );
   }
 }
