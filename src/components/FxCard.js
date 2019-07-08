@@ -37,8 +37,11 @@ class FxCard extends Component {
     const { closeData, highData, lowData } = this.filterChartData();
     return (
       <FlexibleWidthXYPlot xType="time" height={300}>
+        <LineSeries data={closeData} />
+        <LineSeries data={highData} />
+        <LineSeries data={lowData} />
         <HorizontalGridLines />
-        <XAxis />
+        <XAxis tickLabelAngle={-90} margin={{ bottom: 100 }} />
         <YAxis />
         <ChartLabel
           text="Date"
@@ -55,9 +58,6 @@ class FxCard extends Component {
           xPercent={-0.07}
           yPercent={0.06}
         />
-        <LineSeries data={closeData} />
-        <LineSeries data={highData} />
-        <LineSeries data={lowData} />
       </FlexibleWidthXYPlot>
     );
   };
@@ -76,6 +76,7 @@ class FxCard extends Component {
             )
           }
         >
+          <option value={""} />
           <option value={currentYear()}>This year</option>
           <option value={currentYear() - 1}>Last year</option>
           <option value={currentYear() - 3}>{currentYear() - 3}</option>
@@ -92,7 +93,7 @@ class FxCard extends Component {
     return (
       <div className="fx-card">
         {this.props.conversionObject.conversion}
-        {this.generateGraph()}
+        <div className="graph">{this.generateGraph()}</div>
         {this.createRangeFilter()}
       </div>
     );

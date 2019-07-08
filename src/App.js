@@ -4,6 +4,7 @@ import "./App.css";
 import LeftNav from "./containers/LeftNav";
 import Header from "./containers/Header";
 import FxContainer from "./containers/FxContainer";
+import LoginSignup from "./components/LoginSignup";
 
 function App() {
   return (
@@ -12,15 +13,15 @@ function App() {
         <Header />
         <LeftNav />
         <Route exact path="/" component={Home} />
-        <Route path="/login" component={LoginSignup} />
+        <Route path="/login" component={Login} />
         <Route path="/new" component={New} />
       </div>
     </Router>
   );
 }
 
-function LoginSignup() {
-  return <div>will return a signup page</div>;
+function Login() {
+  return <LoginSignup />;
 }
 
 function New() {
