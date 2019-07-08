@@ -1,37 +1,34 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import "./App.css";
-import FxContainer from "./containers/FxContainer";
-import NewTracker from "./components/NewTracker";
-import NavBar from "./NavBar";
+import MainContainer from "./containers/MainContainer";
+import LeftNav from "./containers/LeftNav";
+import Header from "./containers/Header";
 
 function App() {
   return (
     <Router>
-      <NavBar />
-      <Route exact path="/" component={Home} />
-      <Route path="/login" component={SignupLogin} />
-      <Route path="/new" component={newTrack} />
+      <div className="App">
+        <Header />
+        <LeftNav />
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={LoginSignup} />
+        <Route path="/new" component={New} />
+      </div>
     </Router>
   );
 }
 
-function Home() {
-  return (
-    <div className="App">
-      <FxContainer />
-    </div>
-  );
+function LoginSignup() {
+  return <div>will return a signup page</div>;
 }
 
-function SignupLogin() {}
+function New() {
+  return <div>will return a div to add a new currency track</div>;
+}
 
-function newTrack() {
-  return (
-    <div className="App">
-      <NewTracker />
-    </div>
-  );
+function Home() {
+  return <MainContainer />;
 }
 
 export default App;

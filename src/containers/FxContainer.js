@@ -2,8 +2,6 @@ import React, { Component, Fragment } from "react";
 // import API_KEY from "../config";
 import FxCard from "../components/FxCard";
 import FilterSortBar from "../components/FilterSortBar";
-// import { Grid, borders } from "@material-ui/core";
-// import TextField from "@material-ui/core/TextField";
 
 export default class FxContainer extends Component {
   state = { chartData: [] };

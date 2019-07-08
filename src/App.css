@@ -1,5 +1,13 @@
+@import "../node_modules/react-vis/dist/style.css";
+
 .App {
-  text-align: center;
+  display: grid;
+  grid-template-areas:
+    "header header header header header"
+    "left-nav forex-container forex-container forex-container r-nav-live-feed"
+    "left-nav forex-container forex-container forex-container r-nav-filters";
+
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
 .fx-container {
@@ -24,3 +32,27 @@
   background-color: lightblue;
 }
 @import "../node_modules/react-vis/dist/style.css";
+.header {
+  grid-area: header;
+  background-color: cornflowerblue;
+}
+
+.left-nav {
+  grid-area: left-nav;
+  background-color: white;
+}
+
+.forex-container {
+  grid-area: forex-container;
+  background-color: white;
+}
+
+.r-nav-live-feed {
+  grid-area: r-nav-live-feed;
+  background-color: rgb(45, 97, 194);
+}
+
+.r-nav-filters {
+  grid-area: r-nav-filters;
+  background-color: rgb(45, 97, 194);
+}
