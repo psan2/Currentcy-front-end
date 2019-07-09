@@ -1,11 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LeftNav = () => {
   return (
     <div className="left-nav">
-      <button className="nav-button">Home</button>
-      <button className="nav-button">New tracker</button>
-      <button className="nav-button">Login/Signup</button>
+      <Link to="/" className="nav-button">
+        Home
+      </Link>
+
+      <Link to="/login" className="nav-button">
+        Login/Signup
+      </Link>
+
+      <Link to="/logout" className="nav-button">
+        Logout
+      </Link>
     </div>
   );
 };

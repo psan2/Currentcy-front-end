@@ -1,28 +1,29 @@
-import React, { Component, Fragment } from "react";
-// import API_KEY from "../config";
+import React, { Component } from "react";
+import API_KEY from "../config";
 import FxCard from "../components/FxCard";
 import RightNav from "../containers/RightNav";
 
 export default class FxContainer extends Component {
   state = { chartData: [] };
 
-  //using TEST_URL instead of live API link to limit API calls due to rate-limiting
-  TEST_URL = "http://localhost:3000/";
-  // BASE_URL = `https://www.alphavantage.co/`;
-  // WEEKLY_QUERY = `query?function=FX_WEEKLY&`
+  // ALPHAVANTAGE - using TEST_URL instead of live API link to limit API calls due to rate-limiting
+  // TEST_URL = "http://localhost:3000/";
+  BASE_URL = `https://www.alphavantage.co/`;
+  WEEKLY_QUERY = `query?function=FX_WEEKLY&`;
 
   componentDidMount = () => {
-    this.getCurrentFxWeekly("EUR", "USD");
-    this.getCurrentFxWeekly("USD", "GBP");
-    this.getCurrentFxWeekly("GBP", "EUR");
+    // this.getCurrentFxWeekly("EUR", "USD");
+    // this.getCurrentFxWeekly("USD", "GBP");
+    // this.getCurrentFxWeekly("GBP", "EUR");
   };
 
   getCurrentFxWeekly = (fromCurrency, toCurrency) => {
-    // fetch(
-    //   this.BASE_URL + WEEKLY_QUERY +
-    //     `from_symbol=${fromCurrency}&to_symbol=${toCurrency}&apikey=${API_KEY}`
-    // )
-    fetch(this.TEST_URL + `from_symbol=${fromCurrency}&to_symbol=${toCurrency}`)
+    fetch(
+      this.BASE_URL +
+        this.WEEKLY_QUERY +
+        `from_symbol=${fromCurrency}&to_symbol=${toCurrency}&apikey=${API_KEY}`
+    )
+      // fetch(this.TEST_URL + `from_symbol=${fromCurrency}&to_symbol=${toCurrency}`)
       .then(resp => resp.json())
       .then(this.parseChartData);
   };
@@ -116,7 +117,10 @@ export default class FxContainer extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="fx-container">{this.createCards()}</div>
+        <div className="fx-container">
+          {this.createCards()}
+          <FxCard key="new" newTracker={this.getCurrentFxWeekly} />
+        </div>
         <RightNav />
       </React.Fragment>
     );

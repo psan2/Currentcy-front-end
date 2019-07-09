@@ -8,6 +8,7 @@ import {
   ChartLabel
 } from "../../node_modules/react-vis";
 import { currentYear, oldestYear } from "../modules/DateFunctions";
+import NewTracker from "./NewTracker";
 
 class FxCard extends Component {
   filterChartData = () => {
@@ -90,13 +91,17 @@ class FxCard extends Component {
   };
 
   render() {
-    return (
-      <div className="fx-card">
-        {this.props.conversionObject.conversion}
-        <div className="graph">{this.generateGraph()}</div>
-        {this.createRangeFilter()}
-      </div>
-    );
+    if (this.props.conversionObject) {
+      return (
+        <div className="fx-card">
+          {this.props.conversionObject.conversion}
+          <div className="graph">{this.generateGraph()}</div>
+          {this.createRangeFilter()}
+        </div>
+      );
+    } else {
+      return <NewTracker newTracker={this.props.newTracker} />;
+    }
   }
 }
 
