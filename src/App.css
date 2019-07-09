@@ -85,3 +85,11 @@
   width: 422px;
   height: 375px;
 }
+
+.expand-button {
+  float: left;
+}
+
+.close-button {
+  float: right;
+}

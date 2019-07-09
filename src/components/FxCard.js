@@ -9,6 +9,7 @@ import {
 } from "../../node_modules/react-vis";
 import { currentYear, oldestYear } from "../modules/DateFunctions";
 import NewTracker from "./NewTracker";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class FxCard extends Component {
   filterChartData = () => {
@@ -77,7 +78,7 @@ class FxCard extends Component {
             )
           }
         >
-          <option value={""} />
+          <option value={currentYear()} />
           <option value={currentYear()}>This year</option>
           <option value={currentYear() - 1}>Last year</option>
           <option value={currentYear() - 3}>{currentYear() - 3}</option>
@@ -92,11 +93,20 @@ class FxCard extends Component {
 
   render() {
     if (this.props.conversionObject) {
+      const fromCurrency = this.props.conversionObject.conversion.split("_")[0];
+      const toCurrency = this.props.conversionObject.conversion.split("_")[2];
+
       return (
         <div className="fx-card">
-          {this.props.conversionObject.conversion}
+          <div>
+            <FontAwesomeIcon className="expand-button" icon="expand" />
+            <FontAwesomeIcon className="close-button" icon="window-close" />
+          </div>
+          {this.props.conversionObject.conversion.replace(/_/g, " ")}
           <div className="graph">{this.generateGraph()}</div>
           {this.createRangeFilter()}
+          Latest closing price: 1 {fromCurrency} to{" "}
+          {this.props.conversionObject.closeData[0].y} {toCurrency}
         </div>
       );
     } else {

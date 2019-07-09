@@ -5,6 +5,13 @@ import LeftNav from "./containers/LeftNav";
 import Header from "./containers/Header";
 import FxContainer from "./containers/FxContainer";
 import LoginSignup from "./components/LoginSignup";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faExpand,
+  faCompress,
+  faWindowClose
+} from "@fortawesome/free-solid-svg-icons";
+library.add(faExpand, faCompress, faWindowClose);
 
 function App() {
   return (

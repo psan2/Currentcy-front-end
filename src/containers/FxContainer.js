@@ -7,23 +7,23 @@ export default class FxContainer extends Component {
   state = { chartData: [] };
 
   // ALPHAVANTAGE - using TEST_URL instead of live API link to limit API calls due to rate-limiting
-  // TEST_URL = "http://localhost:3000/";
-  BASE_URL = `https://www.alphavantage.co/`;
-  WEEKLY_QUERY = `query?function=FX_WEEKLY&`;
+  TEST_URL = "http://localhost:3000/";
+  // BASE_URL = `https://www.alphavantage.co/`;
+  // WEEKLY_QUERY = `query?function=FX_WEEKLY&`;
 
   componentDidMount = () => {
-    // this.getCurrentFxWeekly("EUR", "USD");
-    // this.getCurrentFxWeekly("USD", "GBP");
-    // this.getCurrentFxWeekly("GBP", "EUR");
+    this.getCurrentFxWeekly("EUR", "USD");
+    this.getCurrentFxWeekly("USD", "GBP");
+    this.getCurrentFxWeekly("GBP", "EUR");
   };
 
   getCurrentFxWeekly = (fromCurrency, toCurrency) => {
-    fetch(
-      this.BASE_URL +
-        this.WEEKLY_QUERY +
-        `from_symbol=${fromCurrency}&to_symbol=${toCurrency}&apikey=${API_KEY}`
-    )
-      // fetch(this.TEST_URL + `from_symbol=${fromCurrency}&to_symbol=${toCurrency}`)
+    // fetch(
+    //   this.BASE_URL +
+    //     this.WEEKLY_QUERY +
+    //     `from_symbol=${fromCurrency}&to_symbol=${toCurrency}&apikey=${API_KEY}`
+    // )
+    fetch(this.TEST_URL + `from_symbol=${fromCurrency}&to_symbol=${toCurrency}`)
       .then(resp => resp.json())
       .then(this.parseChartData);
   };
@@ -73,7 +73,8 @@ export default class FxContainer extends Component {
           conversion: `${fromCurrency}_to_${toCurrency}`,
           closeData: closeData,
           highData: highData,
-          lowData: lowData
+          lowData: lowData,
+          expand: false
         }
       ]
     });
