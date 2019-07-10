@@ -1,4 +1,12 @@
 {
+  "users": [{ "id": "1" }],
+
+  "trackers": [
+    { "fromCurrency": "EUR", "toCurrency": "USD", "userId": "1" },
+    { "fromCurrency": "USD", "toCurrency": "GBP", "userId": "1" },
+    { "fromCurrency": "GBP", "toCurrency": "EUR", "userId": "1" }
+  ],
+
   "from_symbol=EUR&to_symbol=USD": {
     "Meta Data": {
       "1. Information": "Forex Weekly Prices (open, high, low, close)",

@@ -18,7 +18,7 @@ function App() {
     <Router>
       <div className="App">
         <Header />
-        <LeftNav />
+        {/* <LeftNav /> */}
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/new" component={New} />

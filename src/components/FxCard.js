@@ -100,7 +100,13 @@ class FxCard extends Component {
         <div className="fx-card">
           <div>
             <FontAwesomeIcon className="expand-button" icon="expand" />
-            <FontAwesomeIcon className="close-button" icon="window-close" />
+            <FontAwesomeIcon
+              onClick={() =>
+                this.props.removeCard(this.props.conversionObject.id)
+              }
+              className="close-button"
+              icon="window-close"
+            />
           </div>
           {this.props.conversionObject.conversion.replace(/_/g, " ")}
           <div className="graph">{this.generateGraph()}</div>

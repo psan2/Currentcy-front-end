@@ -8,22 +8,34 @@ export default class FxContainer extends Component {
 
   // ALPHAVANTAGE - using TEST_URL instead of live API link to limit API calls due to rate-limiting
   TEST_URL = "http://localhost:3000/";
-  // BASE_URL = `https://www.alphavantage.co/`;
-  // WEEKLY_QUERY = `query?function=FX_WEEKLY&`;
+  BASE_URL = `https://www.alphavantage.co/`;
+  WEEKLY_QUERY = `query?function=FX_WEEKLY&`;
 
   componentDidMount = () => {
-    this.getCurrentFxWeekly("EUR", "USD");
-    this.getCurrentFxWeekly("USD", "GBP");
-    this.getCurrentFxWeekly("GBP", "EUR");
+    this.getUserCurrencies(1);
   };
 
-  getCurrentFxWeekly = (fromCurrency, toCurrency) => {
-    // fetch(
-    //   this.BASE_URL +
-    //     this.WEEKLY_QUERY +
-    //     `from_symbol=${fromCurrency}&to_symbol=${toCurrency}&apikey=${API_KEY}`
-    // )
-    fetch(this.TEST_URL + `from_symbol=${fromCurrency}&to_symbol=${toCurrency}`)
+  getUserCurrencies = userId => {
+    fetch(this.TEST_URL + `users/${userId}/trackers`)
+      .then(resp => resp.json())
+      .then(trackerArr =>
+        trackerArr.map(tracker => this.getCurrentFxWeekly(tracker))
+      );
+  };
+
+  getCurrentFxWeekly = tracker => {
+    fetch(
+      this.BASE_URL +
+        this.WEEKLY_QUERY +
+        `from_symbol=${tracker.fromCurrency}&to_symbol=${
+          tracker.toCurrency
+        }&apikey=${API_KEY}`
+    )
+      // )
+      // fetch(
+      //   this.TEST_URL +
+      //     `from_symbol=${tracker.fromCurrency}&to_symbol=${tracker.toCurrency}`
+      // )
       .then(resp => resp.json())
       .then(this.parseChartData);
   };
@@ -43,6 +55,15 @@ export default class FxContainer extends Component {
   // }
   // these outputs are then saved to the "weekly" key of state
   parseChartData = data => {
+    if (Object.entries(data).length === 0) {
+      return;
+    } else if (data["Error Message"] || data["Note"]) {
+      data["Error Message"]
+        ? alert(data["Error Message"])
+        : alert(data["Note"]);
+      return;
+    }
+
     const fromCurrency = data["Meta Data"]["2. From Symbol"];
     const toCurrency = data["Meta Data"]["3. To Symbol"];
     const weeks = data["Time Series FX (Weekly)"];
@@ -65,10 +86,14 @@ export default class FxContainer extends Component {
         y: parseFloat(prices["3. low"], 10)
       });
     }
+
+    const id = Math.round(Math.random() * 10000);
+
     this.setState({
       chartData: [
         ...this.state.chartData,
         {
+          id: id,
           rangeStart: 0,
           conversion: `${fromCurrency}_to_${toCurrency}`,
           closeData: closeData,
@@ -81,15 +106,33 @@ export default class FxContainer extends Component {
   };
 
   createCards = () => {
-    return this.state.chartData.map((conversionObject, index) => {
+    return this.state.chartData.map(conversionObject => {
       return (
         <FxCard
-          key={index}
+          key={conversionObject.id}
           conversionObject={conversionObject}
           rangeFilter={this.rangeFilter}
+          removeCard={this.removeCard}
         />
       );
     });
+  };
+
+  removeCard = id => {
+    const charts = this.state.chartData.filter(card => card.id !== id);
+    this.setState({ chartData: charts });
+  };
+
+  expandCard = id => {
+    const charts = this.state.chartData.map(card => {
+      if (card.id === id) {
+        card.expand = true;
+        return card;
+      } else {
+        return card;
+      }
+    });
+    this.setState({ chartData: charts });
   };
 
   rangeFilter = (year, targetConversion) => {
